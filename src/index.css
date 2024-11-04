@@ -1,0 +1,256 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inconsolata:wght@200..900&family=Indie+Flower&family=Mukta:wght@200;300;400;500;600;700;800&display=swap');
+
+*{
+  background: white;
+  margin: 0;
+  padding: 0;
+  font-family: 'Cabin';
+}
+
+
+.App{
+  display: block;
+}
+
+
+.header{
+  display: block;
+
+  /* position: fixed; */
+  
+}
+
+.logo{
+  font-size: 20px;
+  padding: 10px;
+  color: rgba(3, 44, 3, 0.867);
+  margin-left: 5%;
+}
+
+.add-item{
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+border: none;
+padding: 10px;
+background: rgb(230, 227, 227);
+border: 1px solid rgb(148, 147, 147);
+width: 70%;
+margin-left: 5%;
+font-size: 16px;
+}
+
+.add-btn{
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border: none;
+padding: 10px;
+background:rgb(230, 227, 227);
+border: 1px solid rgb(148, 147, 147);
+cursor: pointer;
+font-size: 16px;
+
+}
+
+.active-UI{
+  border: none;
+  width: 33%;
+  padding: 10px;
+
+  
+}
+
+
+/* .list-container{
+  margin-top: 8%;
+} */
+.item{
+  padding: 20px;
+  border: 1px solid #ddd;
+ 
+}
+.item:last-child{
+  margin-bottom: 15%;
+}
+.description{
+  display: inline-flex;
+  width: 60%;
+  margin: 10px;
+}
+
+
+h3{
+  margin-right: 10px;
+  
+}
+.quantity-and-shopped{
+  display: flex;
+  justify-content: space-between;
+ 
+}
+
+.quantity{
+  padding: 5px 5px 10px 10px;
+  background: rgb(225, 220, 220);
+  width: auto;
+  justify-content: space-between;
+  border-radius: 30px;
+  display: flex;
+}
+
+.quantity button{
+  
+  border: none;
+  background: transparent;
+  padding: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: bolder;
+}
+
+.price-container{
+  display: block;
+}
+.price-container input{
+  width: 60px;
+  border: none;
+
+ 
+}
+
+.add-price{
+  
+  cursor: pointer;
+  border: none;
+color: white;
+  padding: 5px;
+  border-radius: 15px;
+
+  font-size: 12px;
+  font-weight: bolder;
+  background-color: rgba(3, 44, 3, 0.867);
+}
+.sort-dropdown{
+  border: none;
+  justify-items: 'center';
+}
+.total{
+  text-align: center;
+  color: '#F4D06F';
+}
+
+
+.specials ul{
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+
+ 
+}
+
+.specials ul li{
+
+
+  justify-items: center;
+
+
+  
+}
+
+.specials-data{
+  display: block;
+  justify-content: space-between;
+  width: 70%;
+  height: 100px;
+  border: 1px solid rgb(225, 220, 220);
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  margin-left: 10%;
+
+
+}
+
+.main-container{
+  margin-bottom: 20%;
+}
+.action-buttons{
+  bottom: 0%;
+  width: 100%;
+  
+  position: fixed;
+  height: 10%;
+  background: transparent;
+  display: block;
+  justify-content: center;
+ 
+}
+.clear-btn{
+  cursor: pointer;
+  border: none;
+  background:  rgba(3, 44, 3, 0.867);
+  padding: 15px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: bolder;
+  width: 50%;
+  left: 25%;
+  
+margin: 6px;
+  color: white;
+  position: fixed;
+  font-family: 'DM sans';
+  
+}
+
+.menu{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+}
+
+.menu img{
+width: 50px;
+height: 50px;
+border: 1px solid rgba(183, 179, 179, 0.5);
+border-radius: 50%;
+}
+.menu-options{
+  width: 60px;
+  padding: 7px;
+  background:  rgb(230, 227, 227);
+  border: none;
+  border-radius: 5px;
+}
+
+.navigation ul{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  width: 90%;
+  margin-left: 5%;
+  margin-bottom: 8%;
+}
+
+
+
+  .navigation{
+    bottom: 0%;
+    width: 100%;
+    
+    position: fixed;
+    height: 8%;
+    box-shadow: 2px 0px 7px rgba(175, 171, 171, 0.5);
+    display: block;
+    justify-content: center;
+  }
+
+  .navigation ul li{
+    font-size: 13px;
+    font-weight: bold;
+    list-style: none;
+  margin-right: 20px;
+  padding: 10px;
+  }
