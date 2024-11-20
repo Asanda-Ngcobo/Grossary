@@ -7,7 +7,8 @@ import Logo4 from './Bluff.png';
 import Logo5 from './Pick-n-Pay.png';
 import Logo6 from './Spar.png';
 import Logo7 from './Boxer.png';
-import Me from './Me.jpg'
+// import Me from './Me.jpg'
+import { FaList, FaHome, FaShoppingBag, FaHistory } from "react-icons/fa";
 
 const specials = [
   {store: 'Shoprite',
@@ -59,7 +60,7 @@ function App() {
   const toBeShoppedCount = items.filter((item) => !item.shopped).length;
   return (
     <div className="App">
-      <Menu />
+      {/* <Menu /> */}
       <Main items={items} 
       setItems={setItems}
       setTotalCost={setTotalCost}
@@ -76,14 +77,14 @@ function App() {
   );
 }
 
-function Menu(){
-  return(
-    <div className='menu'>
-      <img src={Me} alt='profile-picture'/>
-      <button className='menu-options'>Menu</button>
-    </div>
-  )
-}
+// function Menu(){
+//   return(
+//     <div className='menu'>
+//       <img src={Me} alt='profile-picture'/>
+//       <button className='menu-options'>Menu</button>
+//     </div>
+//   )
+// }
 function Main({items, setItems, totalCost, setTotalCost, toBeShoppedCount}){
   
   const [sortBy, setSortBy] = useState('priceAndShopped');
@@ -185,7 +186,7 @@ function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount }) {
 
   return (
     <header className="header">
-      <h1 className="logo">grossary🧺</h1>
+      <h1 className="logo">Grossary</h1>
       <input
         type="text"
         className="add-item"
@@ -207,7 +208,7 @@ function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount }) {
               </select>
             </form>
           </Active>
-          <Active>Specials 🎁</Active>
+          <Active>Specials <FaShoppingBag/></Active>
           <TotalCost>{totalCost > 0 && `Overall Total: R${totalCost}`}</TotalCost> 
         </div>
       ) : (
@@ -216,7 +217,7 @@ function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount }) {
           fontSize: '12px', 
           color: '#F08A5D',
            width: '80%', 
-           margin: '10px 10px 10% 10%'}}>Please start <b>adding</b> your grocery items⬆️</p>
+           margin: '10px 10px 10% 10%'}}>Please start <b>adding</b> your grocery items🥬🥒🍅</p>
       )}
     </header>
   );
@@ -367,9 +368,45 @@ function Navigation({items}) {
     <nav className="navigation">
       
       <ul>
-        <li style={items.length === 0 ? {color: 'green'} : {color: ''}}>Home</li>
-        <li>Lists</li>
-        <li>History</li>
+        <li style={items.length === 0 ? {color: 'green'} : {color: ''}}>
+          <div className='word_and_icon'>
+            <div>
+            <span class="material-symbols-outlined">
+<FaHome/>
+</span>
+            </div>
+       <div>
+        Home
+       </div>
+            </div></li>
+        <li>       <div className='word_and_icon'>
+            <div>
+            <FaShoppingBag />
+            </div>
+       <div>
+        Specials
+       </div>
+            </div></li>
+
+
+        <li>       <div className='word_and_icon'>
+            <div>
+ <FaList/>
+            </div>
+       <div>
+        Lists
+       </div>
+            </div></li>
+
+        <li>       
+          <div className='word_and_icon'>
+            <div>
+ <FaHistory/>
+          </div>
+       <div>
+        History
+       </div>
+          </div></li>
         
       </ul>
     </nav>
