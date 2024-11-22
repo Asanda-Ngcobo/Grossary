@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import useLocalStorage from './LocalStorage';
 import './index.css';
 import Logo1 from './Shoprite-Logo.jpg';
 import Logo2 from './clicks.jpg';
@@ -7,7 +8,7 @@ import Logo4 from './Bluff.png';
 import Logo5 from './Pick-n-Pay.png';
 import Logo6 from './Spar.png';
 import Logo7 from './Boxer.png';
-import Me from './Me.jpg'
+// import Me from './Me.jpg'
 
 const specials = [
   {store: 'Shoprite',
@@ -49,41 +50,52 @@ const specials = [
 
 
 function App() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useLocalStorage([], 'added');
   // const [priced, setPrice] = useState([]);
-  const [totalCost, setTotalCost] = useState(0);
+  const [totalCost, setTotalCost] = useLocalStorage(0, 'total');
+  const [sales, setSales] = useState(true)
   function handleClearList() {
     setItems([]);
     setTotalCost(0);
   }
+
+  function handleSpecialsClick(){
+    setSales(!sales)
+  }
   const toBeShoppedCount = items.filter((item) => !item.shopped).length;
   return (
     <div className="App">
-      <Menu />
-      <Main items={items} 
+      {/* <Menu /> */}
+  
+      {!sales ? <Specials/> :     <Main items={items} 
       setItems={setItems}
       setTotalCost={setTotalCost}
       totalCost={totalCost}
-      toBeShoppedCount={toBeShoppedCount}/>
+      toBeShoppedCount={toBeShoppedCount}
+      />}
 
       {items.length > 0 &&  <Clear items={items} 
       setItems={setItems}
-      onClearItems={handleClearList}>{toBeShoppedCount > 0 ? 'Finish': 'Go Pay'}</Clear>}
+      onClearItems={handleClearList}>{toBeShoppedCount > 0 ? 'SAVE': 'GO PAY'}</Clear>}
      
-    {items.length === 0 && <Navigation items={items}/>}
+    {items.length === 0 && 
+    <Navigation items={items}
+    onSpecialsClick={handleSpecialsClick}
+    
+    />}
      
     </div>
   );
 }
 
-function Menu(){
-  return(
-    <div className='menu'>
-      <img src={Me} alt='profile-picture'/>
-      <button className='menu-options'>Menu</button>
-    </div>
-  )
-}
+// function Menu(){
+//   return(
+//     <div className='menu'>
+//       <img src={Me} alt='profile-picture'/>
+//       <button className='menu-options'>Menu</button>
+//     </div>
+//   )
+// }
 function Main({items, setItems, totalCost, setTotalCost, toBeShoppedCount}){
   
   const [sortBy, setSortBy] = useState('priceAndShopped');
@@ -144,8 +156,9 @@ function Main({items, setItems, totalCost, setTotalCost, toBeShoppedCount}){
         totalCost={totalCost}
         setSortBy={setSortBy}
         toBeShoppedCount={toBeShoppedCount}
+        
       />
-      {items.length === 0 ? <Specials/> : 
+   
       <GroceryList
       items={items}
       sortBy={sortBy}
@@ -153,7 +166,7 @@ function Main({items, setItems, totalCost, setTotalCost, toBeShoppedCount}){
       onShoppedItem={handleToggleItems}
       onAddPrice={handleAddPrice}
       onDeleteItem={handleDeleteItem}
-    /> }
+    /> 
       
       
     </div>
@@ -166,8 +179,10 @@ function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount }) {
 
  
 
-  function handleInput() {
+  function handleInput(e) {
+    e.preventDefault();
     if (!description) return;
+    
 
     const newItem = {
       description,
@@ -181,19 +196,28 @@ function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount }) {
     setDescription(''); // Reset input
   }
 
-  
+   // To focus the search box as soon as the application is loaded
+   const inputElement = useRef(null)
+   useEffect(function(){
+     
+ inputElement.current.focus();
+   }, []);
 
   return (
-    <header className="header">
-      <h1 className="logo">grossary🧺</h1>
+    <header className="header" >
+      <h1 className="logo">grossary🍎</h1>
+      <form onSubmit={handleInput}>
       <input
         type="text"
         className="add-item"
         placeholder="Add Item..."
         value={description}
         onChange={(e) => setDescription(e.target.value)}
+        ref={inputElement}
       />
-      <button className="add-btn" onClick={handleInput}>Add</button>
+      <button className="add-btn" >Add</button>
+      </form>
+
   
       {items.length > 0 ? (
         <div>
@@ -264,7 +288,7 @@ function Specials(){
 
 function GroceryList({ items, sortBy, onQuantityChange, onShoppedItem, onAddPrice, onDeleteItem }) {
   let sortedItems = [...items];
-  if (sortBy === 'priceAndShopped') {
+  if (items?.sortBy === 'priceAndShopped') {
     sortedItems.sort((a, b) => {
       if (!a.priceAdded && b.priceAdded) return -1;
       if (a.priceAdded && !b.priceAdded) return 1;
@@ -318,16 +342,18 @@ function QuantityAndShopped({ item, onQuantityChange, onShoppedItem, onAddPrice,
   return (
     <div className="quantity-and-shopped">
       <div className="quantity">
-        <button onClick={() => (item.quantity === 1 ? onDeleteItem(item.id) : onQuantityChange(item.id, item.quantity - 1))} style={{fontSize: '20px'}}>
+        <button onClick={() => (item.quantity === 1 ? onDeleteItem(item.id) : onQuantityChange(item.id, item.quantity - 1))} style={{fontSize: '15px'}}>
           {item.quantity === 1 ? '🗑️' : '-'}
         </button>
         <button>{item.quantity}</button>
-        <button onClick={() => onQuantityChange(item.id, item.quantity + 1)} style={{fontSize: '20px'}}>+</button>
+        <button onClick={() => onQuantityChange(item.id, item.quantity + 1)} style={{fontSize: '25px'}}>+</button>
       </div>
 
       {item.shopped && (
         <div className="price-container">
+          
           <div>
+           
             R<input
               type="number"
               value={inputPrice}
@@ -336,7 +362,7 @@ function QuantityAndShopped({ item, onQuantityChange, onShoppedItem, onAddPrice,
               placeholder="Unit Price"
             />
           </div>
-          <div style={{color: '#F4D06F'}}>Total: R{inputPrice * item.quantity || 0}</div>
+          <div style={{color: '#F4D06F'}}>Subotal: R{inputPrice * item.quantity || 0}</div>
 
           {(priceInputFocused || !item.priceAdded) && (
             <button
@@ -362,12 +388,13 @@ function QuantityAndShopped({ item, onQuantityChange, onShoppedItem, onAddPrice,
 }
 
 
-function Navigation({items}) {
+function Navigation({ onSpecialsClick}) {
   return (
     <nav className="navigation">
       
       <ul>
-        <li style={items.length === 0 ? {color: 'green'} : {color: ''}}>Home</li>
+        <li>Home</li>
+        <li onClick={onSpecialsClick}>Specials</li>
         <li>Lists</li>
         <li>History</li>
         

@@ -90,11 +90,11 @@ h3{
 }
 
 .quantity{
-  padding: 5px 5px 10px 10px;
+  padding: 3px;
   background: rgb(225, 220, 220);
-  width: auto;
+  width: 100px;
   justify-content: space-between;
-  border-radius: 30px;
+  border-radius: 20px;
   display: flex;
 }
 
@@ -103,7 +103,7 @@ h3{
   border: none;
   background: transparent;
   padding: 5px;
-  font-size: 15px;
+  font-size: 20px;
   cursor: pointer;
   font-weight: bolder;
 }
@@ -124,11 +124,11 @@ h3{
   border: none;
 color: white;
   padding: 5px;
-  border-radius: 15px;
+  border-radius: 5px;
 
   font-size: 12px;
   font-weight: bolder;
-  background-color: rgba(3, 44, 3, 0.867);
+  background-color: rgba(116, 119, 116, 0.867);
 }
 .sort-dropdown{
   border: none;
