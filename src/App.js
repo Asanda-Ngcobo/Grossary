@@ -205,7 +205,7 @@ function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount }) {
 
   return (
     <header className="header" >
-      <h1 className="logo">grossary🍎</h1>
+      <h1 className="logo">Grossary🥬</h1>
       <form onSubmit={handleInput}>
       <input
         type="text"
