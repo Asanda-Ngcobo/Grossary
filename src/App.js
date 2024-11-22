@@ -98,7 +98,7 @@ function App() {
 // }
 function Main({items, setItems, totalCost, setTotalCost, toBeShoppedCount}){
   
-  const [sortBy, setSortBy] = useState('priceAndShopped');
+  const [sortBy, setSortBy] = useState('description');
   
 
   function handleAddItem(item) {
@@ -362,7 +362,7 @@ function QuantityAndShopped({ item, onQuantityChange, onShoppedItem, onAddPrice,
               placeholder="Unit Price"
             />
           </div>
-          <div style={{color: '#F4D06F'}}>Subotal: R{inputPrice * item.quantity || 0}</div>
+          <div style={{color: '#F4D06F'}}>Subtotal: R{inputPrice * item.quantity || 0}</div>
 
           {(priceInputFocused || !item.priceAdded) && (
             <button
