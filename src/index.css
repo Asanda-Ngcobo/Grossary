@@ -253,4 +253,8 @@ border-radius: 50%;
     list-style: none;
   margin-right: 20px;
   padding: 10px;
+  
+  }
+  .word_and_icon{
+    display: block;
   }

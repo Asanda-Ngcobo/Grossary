@@ -231,7 +231,7 @@ function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount }) {
               </select>
             </form>
           </Active>
-          <Active>Specials 🎁</Active>
+          <Active>Specials</Active>
           <TotalCost>{totalCost > 0 && `Overall Total: R${totalCost}`}</TotalCost> 
         </div>
       ) : (
@@ -240,7 +240,7 @@ function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount }) {
           fontSize: '12px', 
           color: '#F08A5D',
            width: '80%', 
-           margin: '10px 10px 10% 10%'}}>Please start <b>adding</b> your grocery items⬆️</p>
+           margin: '10px 10px 10% 10%'}}>Please start <b>adding</b> your grocery items🥬🥒🍅</p>
       )}
     </header>
   );
