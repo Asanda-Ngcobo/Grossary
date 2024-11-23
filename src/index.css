@@ -187,6 +187,11 @@ color: white;
   color:  rgba(3, 44, 3, 0.867);
   text-align: center;
 }
+
+h3{
+  text-align: center;
+ text-decoration: underline;
+}
 .main-container{
   margin-bottom: 20%;
 }

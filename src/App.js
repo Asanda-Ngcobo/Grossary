@@ -57,7 +57,7 @@ function App() {
   // const [priced, setPrice] = useState([]);
   const [totalCost, setTotalCost] = useLocalStorage(0, 'total');
   const [sales, setSales] = useState(true)
-  const[history, setHistory] = useState(true)
+
   function handleClearList() {
     setItems([]);
     setTotalCost(0);
@@ -67,9 +67,7 @@ function App() {
     setSales(!sales)
   }
 
-  function handleHistoryClick(){
-    setHistory(!history)
-  }
+
   const toBeShoppedCount = items.filter((item) => !item.shopped).length;
   return (
     <div className="App">
@@ -83,18 +81,18 @@ function App() {
       toBeShoppedCount={toBeShoppedCount}
       onSpecialsClick={handleSpecialsClick}
       />}
-{!history && <History items={items} />}
+
       {items.length > 0 &&  <Clear items={items} 
       setItems={setItems}
       onClearItems={handleClearList}>
         {totalCost > 0 ? 'GO PAY': 'SAVE LIST'}</Clear>}
      
-    {items.length === 0 && 
+    {/* {items.length === 0 && 
     <Navigation items={items}
     onSpecialsClick={handleSpecialsClick}
     onHistoryClick={handleHistoryClick}
     
-    />}
+    />} */}
      
     </div>
   );
@@ -108,7 +106,7 @@ function App() {
 //     </div>
 //   )
 // }
-function Main({items, setItems, totalCost, setTotalCost, toBeShoppedCount}){
+function Main({items, setItems, totalCost, setTotalCost, toBeShoppedCount, onSpecialsClick}){
   
   const [sortBy, setSortBy] = useState('description');
   
@@ -168,6 +166,7 @@ function Main({items, setItems, totalCost, setTotalCost, toBeShoppedCount}){
         totalCost={totalCost}
         setSortBy={setSortBy}
         toBeShoppedCount={toBeShoppedCount}
+        onSpecialsClick={onSpecialsClick}
         
       />
    
@@ -186,7 +185,7 @@ function Main({items, setItems, totalCost, setTotalCost, toBeShoppedCount}){
 }
 
 
-function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount }) {
+function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount, onSpecialsClick }) {
   const [description, setDescription] = useState('');
 
  
@@ -248,12 +247,16 @@ function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount }) {
           <TotalCost>{totalCost > 0 && `Overall Total: R${totalCost}`}</TotalCost> 
         </div>
       ) : (
-        <p style={{ textAlign: 'center', 
+        <>
+         <p style={{ textAlign: 'center', 
           fontFamily:'DM sans', 
           fontSize: '12px', 
           color: '#F08A5D',
            width: '80%', 
            margin: '10px 10px 10% 10%'}}>Please start <b>adding</b> your grocery items🥬🥒🍅</p>
+           <h3 onClick={onSpecialsClick} className="specials__button">Specials🏷️</h3>
+        </>
+       
       )}
     </header>
   );
@@ -304,20 +307,20 @@ function Specials({onSetSales}){
   )
 }
 
-function History({items}){
-  return (
-    <div className='history'>
-      <h2>History Lists</h2>
-      <ul className='active-list-items'>{items.filter((item) => item.shopped).map((item) => (
-        <li key={item.id}>
-          <p>{item.description}</p>
+// function History({items}){
+//   return (
+//     <div className='history'>
+//       <h2>History Lists</h2>
+//       <ul className='active-list-items'>{items.filter((item) => item.shopped).map((item) => (
+//         <li key={item.id}>
+//           <p>{item.description}</p>
          
-        </li>
-      ))}
-      </ul>
-    </div>
-  );
-}
+//         </li>
+//       ))}
+//       </ul>
+//     </div>
+//   );
+// }
 
 function GroceryList({ items, sortBy, onQuantityChange, onShoppedItem, onAddPrice, onDeleteItem }) {
   let sortedItems = [...items];
@@ -421,19 +424,19 @@ function QuantityAndShopped({ item, onQuantityChange, onShoppedItem, onAddPrice,
 }
 
 
-function Navigation({ onSpecialsClick, onHistoryClick}) {
-  return (
-    <nav className="navigation">
+// function Navigation({ onSpecialsClick, onHistoryClick}) {
+//   return (
+//     <nav className="navigation">
       
-      <ul>
-        <li>Home</li>
-        <li onClick={onSpecialsClick}>Specials</li>
-        {/* <li>Lists</li>
-        <li onClick={onHistoryClick}>History</li> */}
+//       <ul>
+//         {/* <li>Home</li> */}
+//         <li onClick={onSpecialsClick}>Specials</li>
+//         {/* <li>Lists</li>
+//          <li onClick={onHistoryClick}>History</li> */}
         
-      </ul>
-    </nav>
-  );
-}
+//       </ul>
+//     </nav>
+//   );
+// }
 
 export default App;
