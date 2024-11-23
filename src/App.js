@@ -8,7 +8,7 @@ import Logo4 from './Bluff.png';
 import Logo5 from './Pick-n-Pay.png';
 import Logo6 from './Spar.png';
 import Logo7 from './Boxer.png';
-// import Me from './Me.jpg'
+import Logo8 from './Dischem.png'
 
 const specials = [
   {store: 'Shoprite',
@@ -45,9 +45,12 @@ const specials = [
     imageURL:Logo7,
     linkURL: 'https://www.boxer.co.za/promotions'
   },
-  
+  // {store: 'Dischem',
+   
+  //   imageURL: '',
+  //   linkURL: 'https://www.dischem.co.za/on-promotion?srsltid=AfmBOooX33qmrK2nRNIOqguu166ed6o9Au-PyaN6TDYBe29HvnrdOD05'
+  // },
 ]
-
 
 function App() {
   const [items, setItems] = useLocalStorage([], 'added');
@@ -67,16 +70,19 @@ function App() {
     <div className="App">
       {/* <Menu /> */}
   
-      {!sales ? <Specials/> :     <Main items={items} 
+      {!sales ? <Specials onSetSales={setSales}/> :     
+      <Main items={items} 
       setItems={setItems}
       setTotalCost={setTotalCost}
       totalCost={totalCost}
       toBeShoppedCount={toBeShoppedCount}
+      onSpecialsClick={handleSpecialsClick}
       />}
 
       {items.length > 0 &&  <Clear items={items} 
       setItems={setItems}
-      onClearItems={handleClearList}>{toBeShoppedCount > 0 ? 'SAVE': 'GO PAY'}</Clear>}
+      onClearItems={handleClearList}>
+        {totalCost > 0 ? 'GO PAY': 'SAVE'}</Clear>}
      
     {items.length === 0 && 
     <Navigation items={items}
@@ -205,7 +211,7 @@ function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount }) {
 
   return (
     <header className="header" >
-      <h1 className="logo">Grossary🥬</h1>
+      <h1 className="logo">Grossary<img src='Logo.png' alt='Logo' width={20}></img></h1>
       <form onSubmit={handleInput}>
       <input
         type="text"
@@ -225,9 +231,10 @@ function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount }) {
           <Active>
             <form>
               <select onChange={(e) => setSortBy(e.target.value)} className="sort-dropdown">
-                <option value="priceAndShopped">Status</option>
+              <option value="description">Name</option>
                 <option value="quantity">Quantity</option>
-                <option value="description">Name</option>
+                
+                <option value="priceAndShopped">Status</option>
               </select>
             </form>
           </Active>
@@ -261,11 +268,14 @@ function Clear({children, onClearItems}){
     <div className='action-buttons'><button className='clear-btn' onClick={onClearItems}>{children}</button></div>
   )
 }
-function Specials(){
+function Specials({onSetSales}){
 
 
 
   return(
+    <>
+       <span className='back' onClick={()=>onSetSales(true)}>&larr;</span>
+       <h2 className='specials_header'>Most popular stores</h2>
     <ul className='specials'>{specials.map((special)=> (
       <a href={special.linkURL}>
           <li key={special.store}>
@@ -273,7 +283,7 @@ function Specials(){
        
         <img src={special.imageURL} 
         style={{width: 120}} 
-        alt='shoprite'/>
+        alt='store-logo'/>
         
        
         
@@ -283,6 +293,8 @@ function Specials(){
     
        
     ))}</ul>
+    </>
+ 
   )
 }
 
