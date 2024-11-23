@@ -8,7 +8,7 @@ import Logo4 from './Bluff.png';
 import Logo5 from './Pick-n-Pay.png';
 import Logo6 from './Spar.png';
 import Logo7 from './Boxer.png';
-import Logo8 from './Dischem.png'
+// import Logo8 from './Dischem.png'
 
 const specials = [
   {store: 'Shoprite',
@@ -57,6 +57,7 @@ function App() {
   // const [priced, setPrice] = useState([]);
   const [totalCost, setTotalCost] = useLocalStorage(0, 'total');
   const [sales, setSales] = useState(true)
+  const[history, setHistory] = useState(true)
   function handleClearList() {
     setItems([]);
     setTotalCost(0);
@@ -64,6 +65,10 @@ function App() {
 
   function handleSpecialsClick(){
     setSales(!sales)
+  }
+
+  function handleHistoryClick(){
+    setHistory(!history)
   }
   const toBeShoppedCount = items.filter((item) => !item.shopped).length;
   return (
@@ -78,7 +83,7 @@ function App() {
       toBeShoppedCount={toBeShoppedCount}
       onSpecialsClick={handleSpecialsClick}
       />}
-
+{!history && <History items={items} />}
       {items.length > 0 &&  <Clear items={items} 
       setItems={setItems}
       onClearItems={handleClearList}>
@@ -87,6 +92,7 @@ function App() {
     {items.length === 0 && 
     <Navigation items={items}
     onSpecialsClick={handleSpecialsClick}
+    onHistoryClick={handleHistoryClick}
     
     />}
      
@@ -298,6 +304,21 @@ function Specials({onSetSales}){
   )
 }
 
+function History({items}){
+  return (
+    <div className='history'>
+      <h2>History Lists</h2>
+      <ul className='active-list-items'>{items.filter((item) => item.shopped).map((item) => (
+        <li key={item.id}>
+          <p>{item.description}</p>
+         
+        </li>
+      ))}
+      </ul>
+    </div>
+  );
+}
+
 function GroceryList({ items, sortBy, onQuantityChange, onShoppedItem, onAddPrice, onDeleteItem }) {
   let sortedItems = [...items];
   if (items?.sortBy === 'priceAndShopped') {
@@ -400,15 +421,15 @@ function QuantityAndShopped({ item, onQuantityChange, onShoppedItem, onAddPrice,
 }
 
 
-function Navigation({ onSpecialsClick}) {
+function Navigation({ onSpecialsClick, onHistoryClick}) {
   return (
     <nav className="navigation">
       
       <ul>
         <li>Home</li>
         <li onClick={onSpecialsClick}>Specials</li>
-        <li>Lists</li>
-        <li>History</li>
+        {/* <li>Lists</li>
+        <li onClick={onHistoryClick}>History</li> */}
         
       </ul>
     </nav>
