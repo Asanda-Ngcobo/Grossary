@@ -87,7 +87,7 @@ function App() {
       {items.length > 0 &&  <Clear items={items} 
       setItems={setItems}
       onClearItems={handleClearList}>
-        {totalCost > 0 ? 'GO PAY': 'SAVE'}</Clear>}
+        {totalCost > 0 ? 'GO PAY': 'SAVE LIST'}</Clear>}
      
     {items.length === 0 && 
     <Navigation items={items}
@@ -288,7 +288,7 @@ function Specials({onSetSales}){
         <div className='specials-data'>
        
         <img src={special.imageURL} 
-        style={{width: 120}} 
+        style={{width: 100}} 
         alt='store-logo'/>
         
        
