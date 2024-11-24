@@ -60,7 +60,13 @@ font-size: 16px;
   
 }
 
+.specials-btn{
+  border: none;
+  padding: 10px;
+ 
+  cursor: pointer;
 
+}
 /* .list-container{
   margin-top: 8%;
 } */

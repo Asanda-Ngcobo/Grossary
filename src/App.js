@@ -82,10 +82,10 @@ function App() {
       onSpecialsClick={handleSpecialsClick}
       />}
 
-      {items.length > 0 &&  <Clear items={items} 
+      {items.length > 0 && sales && <Clear items={items} 
       setItems={setItems}
       onClearItems={handleClearList}>
-        {totalCost > 0 ? 'GO PAY': 'SAVE LIST'}</Clear>}
+        {totalCost > 0 ? 'GO PAY': 'CLEAR LIST'}</Clear>}
      
     {/* {items.length === 0 && 
     <Navigation items={items}
@@ -243,7 +243,7 @@ function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount, onSpe
               </select>
             </form>
           </Active>
-          <Active>Specials</Active>
+          <SpecialsButton onSpecialsClick={onSpecialsClick}>Specials</SpecialsButton>
           <TotalCost>{totalCost > 0 && `Overall Total: R${totalCost}`}</TotalCost> 
         </div>
       ) : (
@@ -275,6 +275,12 @@ function Clear({children, onClearItems}){
 
   return (
     <div className='action-buttons'><button className='clear-btn' onClick={onClearItems}>{children}</button></div>
+  )
+}
+
+function SpecialsButton({onSpecialsClick}){
+  return(
+    <button className='specials-btn' onClick={onSpecialsClick}>Specials</button>
   )
 }
 function Specials({onSetSales}){
