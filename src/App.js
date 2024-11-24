@@ -254,7 +254,7 @@ function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount, onSpe
           color: '#F08A5D',
            width: '80%', 
            margin: '10px 10px 10% 10%'}}>Please start <b>adding</b> your grocery items🥬🥒🍅</p>
-           <h3 onClick={onSpecialsClick} className="specials__button">Specials🏷️</h3>
+           <h5 onClick={onSpecialsClick} className="specials__button">Specials🏷️</h5>
         </>
        
       )}
