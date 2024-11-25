@@ -23,13 +23,12 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #fff; /* Optional: Ensure header has a background */
   z-index: 10; /* Ensure header stays above other content */
   box-shadow: 0 4px 5px rgba(99, 96, 96, 0.1);
 }
 
 .list-container {
-  margin-top: calc(20% + 30px); /* Adjust based on header's height */
+  margin-top: calc(25% + 30px); /* Adjust based on header's height */
   position: relative; /* Ensure it's part of the document flow */
 }
 
@@ -85,6 +84,9 @@ font-size: 16px;
   padding: 20px;
   border: 1px solid #ddd;
  
+}
+.item:first-child{
+  border-top: none;
 }
 .item:last-child{
   margin-bottom: 15%;
