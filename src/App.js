@@ -85,7 +85,7 @@ function App() {
       {items.length > 0 && sales && <Clear items={items} 
       setItems={setItems}
       onClearItems={handleClearList}>
-        {totalCost > 0 && 'CLEAR LIST'}</Clear>}
+        {items.length > 0 && 'CLEAR LIST'}</Clear>}
      
     {/* {items.length === 0 && 
     <Navigation items={items}
