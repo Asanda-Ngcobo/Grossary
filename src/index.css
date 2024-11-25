@@ -13,12 +13,24 @@
   display: block;
 }
 
-
-.header{
+.main-container{
   display: block;
+}
+.header {
+  display: block;
+  width: 100%;
+  margin-bottom: 20%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #fff; /* Optional: Ensure header has a background */
+  z-index: 10; /* Ensure header stays above other content */
+  box-shadow: 0 4px 5px rgba(99, 96, 96, 0.1);
+}
 
-  /* position: fixed; */
-  
+.list-container {
+  margin-top: calc(20% + 10px); /* Adjust based on header's height */
+  position: relative; /* Ensure it's part of the document flow */
 }
 
 .logo{
@@ -60,6 +72,7 @@ font-size: 16px;
   
 }
 
+
 .specials-btn{
   border: none;
   padding: 10px;
@@ -67,9 +80,7 @@ font-size: 16px;
   cursor: pointer;
 
 }
-/* .list-container{
-  margin-top: 8%;
-} */
+
 .item{
   padding: 20px;
   border: 1px solid #ddd;
@@ -198,9 +209,7 @@ h5{
   text-align: center;
  text-decoration: underline;
 }
-.main-container{
-  margin-bottom: 20%;
-}
+
 .action-buttons{
   bottom: 0%;
   width: 100%;

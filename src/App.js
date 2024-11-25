@@ -108,7 +108,7 @@ function App() {
 // }
 function Main({items, setItems, totalCost, setTotalCost, toBeShoppedCount, onSpecialsClick}){
   
-  const [sortBy, setSortBy] = useState('description');
+  const [sortBy, setSortBy] = useState('priceAndShopped');
   
 
   function handleAddItem(item) {
@@ -236,10 +236,11 @@ function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount, onSpe
           <Active>
             <form>
               <select onChange={(e) => setSortBy(e.target.value)} className="sort-dropdown">
+                
+              <option value="priceAndShopped">Status</option>
               <option value="description">Name</option>
                 <option value="quantity">Quantity</option>
-                
-                <option value="priceAndShopped">Status</option>
+              
               </select>
             </form>
           </Active>
@@ -330,7 +331,7 @@ function Specials({onSetSales}){
 
 function GroceryList({ items, sortBy, onQuantityChange, onShoppedItem, onAddPrice, onDeleteItem }) {
   let sortedItems = [...items];
-  if (items?.sortBy === 'priceAndShopped') {
+  if (sortBy === 'priceAndShopped') {
     sortedItems.sort((a, b) => {
       if (!a.priceAdded && b.priceAdded) return -1;
       if (a.priceAdded && !b.priceAdded) return 1;
