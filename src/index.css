@@ -28,7 +28,7 @@
 }
 
 .list-container {
-  margin-top: calc(25% + 30px); /* Adjust based on header's height */
+  margin-top: calc(25% + 50px); /* Adjust based on header's height */
   position: relative; /* Ensure it's part of the document flow */
 }
 
