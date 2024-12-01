@@ -294,7 +294,7 @@ setBudget,
           <SpecialsButton onSpecialsClick={onSpecialsClick}>Specials</SpecialsButton>
           <TotalCost>{totalCost > 0 && `📈Total: R${totalCost}`}</TotalCost> 
           <TotalCost>{budget > 0 && totalCost > 0 && `📉Money Left: R${left}`}</TotalCost> 
-         <AddBudget>{totalCost > 0 && (
+         <AddBudget>{items.length > 0 && (
            <form className='budget' onSubmit={handleAddBudget}>
      
            💵Budget: <input type='number' placeholder='R1000' value={budget} onChange={(e)=> setBudget(e.target.value)}/>
