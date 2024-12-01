@@ -28,7 +28,7 @@
 }
 
 .list-container {
-  margin-top: calc(25% + 50px); /* Adjust based on header's height */
+  margin-top: calc(35% + 50px); /* Adjust based on header's height */
   position: relative; /* Ensure it's part of the document flow */
 }
 
@@ -147,15 +147,16 @@ color: white;
 
   font-size: 12px;
   font-weight: bolder;
-  background-color: rgba(116, 119, 116, 0.867);
+  background-color: rgba(5, 92, 5, 0.867);
 }
 .sort-dropdown{
   border: none;
   justify-items: 'center';
 }
 .total{
-  text-align: center;
-  color: '#F4D06F';
+  border: none;
+  width: 50%;
+  padding: 10px;
 }
 
 
@@ -226,21 +227,55 @@ h5{
 .clear-btn{
   cursor: pointer;
   border: none;
-  background:  rgba(3, 44, 3, 0.867);
-  padding: 15px;
-  border-radius: 30px;
+
+  background: rgba(5, 92, 5, 0.867);
+  padding: 10px;
+  border-radius: 10px;
   font-size: 15px;
   font-weight: bolder;
-  width: 50%;
-  left: 25%;
   
-margin: 6px;
+  width: 90%;
   color: white;
   position: fixed;
+  bottom: 10px; /* Distance from the bottom of the screen */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Adjust for horizontal centering */
   font-family: 'DM sans';
+  z-index: 1000; 
   
 }
 
+
+
+.budget{
+  background: transparent;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.budget input{
+
+  border: none;
+ 
+  height: 30px;
+
+  font-size: 15px;
+  width: 50px;
+}
+.budget button{
+  background: #F4D06F;
+  border: none;
+  padding: 5px;
+  font-size: 15px;
+  font-weight: bolder;
+  border: 1px solid rgb(148, 147, 147);
+  border-radius: 5px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+
+}
 .menu{
   display: flex;
   justify-content: space-between;

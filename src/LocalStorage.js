@@ -1,21 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState } from 'react';
 
-function useLocalStorage(key) {
-    const [value, setValue] = useState(function(){
-        // retrieve watched data from local storage
-        const storeAdded = JSON.parse(localStorage.getItem(key));
-        if(storeAdded){
-          return storeAdded;
-        }
-        return [];
-      });
-        //Keeping the state of the watched intact even after refreshing
-  useEffect(function(){
-    localStorage.setItem(key, JSON.stringify(value)); 
-    //JSON.stringify is used to store watched data into a string because localStorage works with strings.
-     }, [value, key])
-   return [value, setValue]
+function useLocalStorage(initialValue, key) {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.error('Error reading from localStorage:', error);
+      return initialValue;
+    }
+  });
+
+  const setValue = (value) => {
+    try {
+      const valueToStore =
+        value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error) {
+      console.error('Error saving to localStorage:', error);
+    }
+  };
+
+  return [storedValue, setValue];
 }
-
 
 export default useLocalStorage;

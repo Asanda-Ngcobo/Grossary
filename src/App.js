@@ -54,13 +54,26 @@ const specials = [
 
 function App() {
   const [items, setItems] = useLocalStorage([], 'added');
-  // const [priced, setPrice] = useState([]);
+useEffect(() => {
+  if (!Array.isArray(items)) {
+    setItems([]);
+  }
+}, [items, setItems]);
   const [totalCost, setTotalCost] = useLocalStorage(0, 'total');
+
   const [sales, setSales] = useState(true)
+
+
+  
+  const [budget, setBudget] = useLocalStorage(0, 'budget')
+
+
 
   function handleClearList() {
     setItems([]);
     setTotalCost(0);
+  setBudget(0)
+
   }
 
   function handleSpecialsClick(){
@@ -68,7 +81,9 @@ function App() {
   }
 
 
-  const toBeShoppedCount = items.filter((item) => !item.shopped).length;
+  const toBeShoppedCount = Array.isArray(items)
+  ? items.filter((item) => !item.shopped).length
+  : 0;
   return (
     <div className="App">
       {/* <Menu /> */}
@@ -78,11 +93,16 @@ function App() {
       setItems={setItems}
       setTotalCost={setTotalCost}
       totalCost={totalCost}
+      budget={budget}
+      setBudget={setBudget}
+     
       toBeShoppedCount={toBeShoppedCount}
       onSpecialsClick={handleSpecialsClick}
       />}
+     
 
-      {items.length > 0 && sales && <Clear items={items} 
+    
+      {items.length > 0 && sales  && <Clear items={items} 
       setItems={setItems}
       onClearItems={handleClearList}>
         {items.length > 0 && 'CLEAR LIST'}</Clear>}
@@ -106,13 +126,22 @@ function App() {
 //     </div>
 //   )
 // }
-function Main({items, setItems, totalCost, setTotalCost, toBeShoppedCount, onSpecialsClick}){
+function Main({
+  items, 
+  setItems, 
+  totalCost, 
+  setTotalCost, 
+  budget, 
+  setBudget, 
+  enterBudget,
+  toBeShoppedCount, 
+  onSpecialsClick}){
   
   const [sortBy, setSortBy] = useState('priceAndShopped');
   
 
   function handleAddItem(item) {
-    setItems([...items, item]);
+    setItems((prevItems) => (Array.isArray(prevItems) ? [...prevItems, item] : [item]));
   }
 
   function handleQuantityChange(id, newQuantity) {
@@ -165,6 +194,9 @@ function Main({items, setItems, totalCost, setTotalCost, toBeShoppedCount, onSpe
         items={items}
         totalCost={totalCost}
         setSortBy={setSortBy}
+        budget={budget}
+        setBudget={setBudget}
+        enterBudget={enterBudget}
         toBeShoppedCount={toBeShoppedCount}
         onSpecialsClick={onSpecialsClick}
         
@@ -185,10 +217,25 @@ function Main({items, setItems, totalCost, setTotalCost, toBeShoppedCount, onSpe
 }
 
 
-function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount, onSpecialsClick }) {
+function Header({ 
+  AddItems, 
+  items, 
+  totalCost, 
+  setSortBy, 
+  budget, 
+setBudget,
+
+  toBeShoppedCount, 
+  onSpecialsClick }) {
   const [description, setDescription] = useState('');
 
- 
+  function handleAddBudget(e){
+    e.preventDefault();
+    if(!budget) return;
+    
+  }
+
+  const left = Number(budget) - Number(totalCost);
 
   function handleInput(e) {
     e.preventDefault();
@@ -245,7 +292,16 @@ function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount, onSpe
             </form>
           </Active>
           <SpecialsButton onSpecialsClick={onSpecialsClick}>Specials</SpecialsButton>
-          <TotalCost>{totalCost > 0 && `Overall Total: R${totalCost}`}</TotalCost> 
+          <TotalCost>{totalCost > 0 && `📈Total: R${totalCost}`}</TotalCost> 
+          <TotalCost>{budget > 0 && totalCost > 0 && `📉Money Left: R${left}`}</TotalCost> 
+         <AddBudget>{totalCost > 0 && (
+           <form className='budget' onSubmit={handleAddBudget}>
+     
+           💵Budget: <input type='number' placeholder='R1000' value={budget} onChange={(e)=> setBudget(e.target.value)}/>
+       
+         </form>
+         )}</AddBudget> 
+        
         </div>
       ) : (
         <>
@@ -265,7 +321,7 @@ function Header({ AddItems, items, totalCost, setSortBy, toBeShoppedCount, onSpe
 
 //Buttons
 function TotalCost({ children }) {
-  return <h3 className="total">{children}</h3>;
+  return <button className="total">{children}</button>;
 }
 
 function Active({ children }) {
@@ -284,6 +340,17 @@ function SpecialsButton({onSpecialsClick}){
     <button className='specials-btn' onClick={onSpecialsClick}>Specials</button>
   )
 }
+
+function AddBudget({children}){
+  return(
+    <form className='budget'>
+     
+    {children}
+ 
+   </form>
+  )
+}
+
 function Specials({onSetSales}){
 
 
