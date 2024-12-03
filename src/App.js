@@ -70,6 +70,7 @@ useEffect(() => {
 
 
   function handleClearList() {
+  
     setItems([]);
     setTotalCost(0);
   setBudget(0)
@@ -102,17 +103,17 @@ useEffect(() => {
      
 
     
-      {items.length > 0 && sales  && <Clear items={items} 
-      setItems={setItems}
-      onClearItems={handleClearList}>
-        {items.length > 0 && 'CLEAR LIST'}</Clear>}
+    
      
-    {/* {items.length === 0 && 
+    
+    
     <Navigation items={items}
     onSpecialsClick={handleSpecialsClick}
-    onHistoryClick={handleHistoryClick}
+    setItems={setItems}
+    onClearItems={handleClearList}
+    sales={sales}
     
-    />} */}
+    />
      
     </div>
   );
@@ -155,12 +156,22 @@ function Main({
   }
 
   function handleToggleItems(id) {
-    setItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, shopped: !item.shopped } : item
-      )
-    );
+    setItems((prevItems) => {
+      const updatedItems = prevItems.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              shopped: !item.shopped,
+              price: !item.shopped ? null : item.price, // Clear price if unticked
+              priceAdded: !item.shopped ? false : item.priceAdded, // Reset priceAdded if unticked
+            }
+          : item
+      );
+      calculateTotalCost(updatedItems); // Recalculate total cost
+      return updatedItems;
+    });
   }
+  
 
   function handleAddPrice(id, price) {
     setItems((prevItems) => {
@@ -292,14 +303,14 @@ setBudget,
             </form>
           </Active>
           <SpecialsButton onSpecialsClick={onSpecialsClick}>Specials</SpecialsButton>
-          <TotalCost>{totalCost > 0 && `📈Total: R${totalCost}`}</TotalCost> 
+          <TotalCost>{totalCost > 0 && `📈Money Spent: R${totalCost}`}</TotalCost> 
           <TotalCost>{budget > 0 && totalCost > 0 && `📉Money Left: R${left}`}</TotalCost> 
          <AddBudget>{items.length > 0 && (
-           <form className='budget' onSubmit={handleAddBudget}>
+           <div className='budget' onSubmit={handleAddBudget}>
      
            💵Budget: <input type='number' placeholder='R1000' value={budget} onChange={(e)=> setBudget(e.target.value)}/>
        
-         </form>
+         </div>
          )}</AddBudget> 
         
         </div>
@@ -328,12 +339,12 @@ function Active({ children }) {
   return <button className="active-UI">{children}</button>;
 }
 
-function Clear({children, onClearItems}){
+// function Clear({children, onClearItems}){
 
-  return (
-    <div className='action-buttons'><button className='clear-btn' onClick={onClearItems}>{children}</button></div>
-  )
-}
+//   return (
+//     <div className='action-buttons'><button className='clear-btn' onClick={onClearItems}>{children}</button></div>
+//   )
+// }
 
 function SpecialsButton({onSpecialsClick}){
   return(
@@ -461,7 +472,9 @@ function QuantityAndShopped({ item, onQuantityChange, onShoppedItem, onAddPrice,
 
       {item.shopped && (
         <div className="price-container">
-          
+          <form>
+            
+            </form>
           <div>
            
             R<input
@@ -479,7 +492,7 @@ function QuantityAndShopped({ item, onQuantityChange, onShoppedItem, onAddPrice,
               className="add-price"
               onClick={handleAddPrice}
             >
-              Add price
+              ADD
             </button>
           )}
         </div>
@@ -498,19 +511,25 @@ function QuantityAndShopped({ item, onQuantityChange, onShoppedItem, onAddPrice,
 }
 
 
-// function Navigation({ onSpecialsClick, onHistoryClick}) {
-//   return (
-//     <nav className="navigation">
+function Navigation({ onSpecialsClick, items, sales, onHistoryClick, onClearItems}) {
+  return (
+    <nav className="navigation">
       
-//       <ul>
-//         {/* <li>Home</li> */}
-//         <li onClick={onSpecialsClick}>Specials</li>
-//         {/* <li>Lists</li>
-//          <li onClick={onHistoryClick}>History</li> */}
+     
+      {items.length > 0 && sales  &&  <div className='action-buttons'><button className='clear-btn' onClick={onClearItems}>CLEAR LIST</button></div>}
+      {items.length === 0 && (
+        <ul>
+   <li>Home</li>
+   <li onClick={onSpecialsClick}>Specials</li>
+   <li>Lists</li>
+    <li onClick={onHistoryClick}>History</li>
+    </ul>
+      )}
+     
         
-//       </ul>
-//     </nav>
-//   );
-// }
+     
+    </nav>
+  );
+}
 
 export default App;
