@@ -11,7 +11,7 @@ function ClearListConf({onClearItems, isClearing, clear}) {
 function Modal({onClearItems, clear}){
     return(
         <div className="clear_modal">
-<h3>Are you sure you want clear this list?</h3>
+<h3>Are you sure you want to clear this list?</h3>
        <button className='clearlist-confirm' onClick={onClearItems}>Yes</button>
        <button className='clearlist-cancel' onClick={()=> clear((isClearing)=> !isClearing)}>No</button>
         </div>
